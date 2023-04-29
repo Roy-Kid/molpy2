@@ -1,56 +1,15 @@
-find_package(xtl REQUIRED)
-find_package(xtensor REQUIRED)
-if (NOT xtensor_FOUND)
-    # xtensor not found, try to find it as a submodule
-    # else add it as a submodule at enternal/pybind11
-    if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/external/xtensor/CMakeLists.txt")
-        message(STATUS "xtensor submodule found")
-        add_subdirectory(xtensor)
-    else()
-        message(STATUS "xtensor submodule not found, downloading from github")
-        include(FetchContent)
-        FetchContent_Declare(
-            xtensor
-            GIT_REPOSITORY 
-        )
-        FetchContent_MakeAvailable(xtensor)
-    endif()
-else()
-    message(STATUS "xtensor found")
-endif()
-
-# --- compile cpp code as a shared lib and (optional)test it ---
-
 # Use -fPIC even if statically compiled
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# If rely on external cpp submodule, 
-# add_subdirectory()
-# ... or compile it manually
-add_library(
-    cpp_core
-    src/example.cpp
-)
-
-# Optional: set_target_properties
-
-# Include directory of headers
-target_include_directories(
-    cpp_core
-    PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-target_link_libraries(
-    cpp_core
-    PUBLIC
-    xtensor
-)
+# compile cpp kernel
+add_subdirectory(external/molcpp)
+set_target_properties(molcpp PROPERTIES MOLCPP_BUILD_SHARED OFF)
 
 # --- add deps ---
 ## find python then pybind11
 find_package(Python REQUIRED COMPONENTS Interpreter Development NumPy)
 find_package(pybind11 REQUIRED CONFIG QUIET)
+find_package(xtensor REQUIRED)
 find_package(xtensor-python REQUIRED)
 
 if (NOT pybind11_FOUND)
@@ -93,13 +52,22 @@ endif()
 
 
 # --- compile python module ---
-pybind11_add_module(cpp_kernel bind_example.cpp)
-# target_include_directories(
-#     cpppkg 
-#     PUBLIC
-#     ${CMAKE_CURRENT_SOURCE_DIR}/include 
-# )
-target_link_libraries(cpp_kernel PUBLIC cpp_core pybind11::module xtensor-python Python::NumPy)
+pybind11_add_module(cpp_kernel 
+    src/bind_atom.cpp
+    main.cpp
+)
+target_include_directories(
+    cpp_kernel 
+    PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+target_link_libraries(cpp_kernel PUBLIC molcpp pybind11::module xtensor-python Python::NumPy)
+
+set_target_properties(
+    cpp_kernel
+    PROPERTIES
+    LIBRARY_OUTPUT_NAME molcpp
+)
 
 # --- Install libs so python module can import it ---
 
