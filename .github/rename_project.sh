@@ -17,9 +17,9 @@ echo "Description: $description";
 echo "Renaming project..."
 
 original_author="Roy-Kid"
-original_name="modern_python_template"
-original_urlname="modern-python-template"
-original_description="Awesome modern_python_template created by Roy-Kid"
+original_name="molpy2"
+original_urlname="molpy2"
+original_description="Awesome molpy2 created by Roy-Kid"
 # for filename in $(find . -name "*.*") 
 for filename in $(git ls-files) 
 do

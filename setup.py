@@ -28,8 +28,8 @@ setuptools.setup(
     ext_modules=[
         cmake_build_extension.CMakeExtension(
             name="Pybind11Bindings",
-            # Name of the resulting package name (import modern_python_template)
-            install_prefix="modern_python_template",
+            # Name of the resulting package name (import molpy2)
+            install_prefix="molpy2",
             # Note: pybind11 is a build-system requirement specified in pyproject.toml,
             #       therefore pypa/pip or pypa/build will install it in the virtual
             #       environment created in /tmp during packaging.

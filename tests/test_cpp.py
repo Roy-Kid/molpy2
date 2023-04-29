@@ -1,4 +1,4 @@
-from modern_python_template import cpp_add, cpp_sum_sines
+from molpy2 import cpp_add, cpp_sum_sines
 
 def test_cpp_add():
     assert cpp_add(1, 2) == 3

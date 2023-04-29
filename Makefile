@@ -25,20 +25,20 @@ install:          ## Install the project in dev mode.
 
 .PHONY: fmt
 fmt:              ## Format code using black & isort.
-	$(ENV_PREFIX)isort modern_python_template/
-	$(ENV_PREFIX)black -l 79 modern_python_template/
+	$(ENV_PREFIX)isort molpy2/
+	$(ENV_PREFIX)black -l 79 molpy2/
 	$(ENV_PREFIX)black -l 79 tests/
 
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
-	$(ENV_PREFIX)flake8 modern_python_template/
-	$(ENV_PREFIX)black -l 79 --check modern_python_template/
+	$(ENV_PREFIX)flake8 molpy2/
+	$(ENV_PREFIX)black -l 79 --check molpy2/
 	$(ENV_PREFIX)black -l 79 --check tests/
-	$(ENV_PREFIX)mypy --ignore-missing-imports modern_python_template/
+	$(ENV_PREFIX)mypy --ignore-missing-imports molpy2/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
-	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=modern_python_template -l --tb=short --maxfail=1 tests/
+	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=molpy2 -l --tb=short --maxfail=1 tests/
 	$(ENV_PREFIX)coverage xml
 	$(ENV_PREFIX)coverage html
 
@@ -76,9 +76,9 @@ virtualenv:       ## Create a virtual environment.
 release:          ## Create a new tag for release.
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
-	@echo "$${TAG}" > modern_python_template/VERSION
+	@echo "$${TAG}" > molpy2/VERSION
 	@$(ENV_PREFIX)gitchangelog > HISTORY.md
-	@git add modern_python_template/VERSION HISTORY.md
+	@git add molpy2/VERSION HISTORY.md
 	@git commit -m "release: version $${TAG} 🚀"
 	@echo "creating git tag : $${TAG}"
 	@git tag $${TAG}
@@ -95,7 +95,7 @@ docs:             ## Build the documentation.
 init:             ## Initialize the project based on an application template.
 	@./.github/init.sh
 
-# This project has been generated from Roy-Kid/modern-python-template
+# This project has been generated from Roy-Kid/molpy2
 # __author__ = 'Roy-Kid'
-# __repo__ = https://github.com/Roy-Kid/modern-python-template
+# __repo__ = https://github.com/Roy-Kid/molpy2
 # __sponsor__ = https://github.com/sponsors/Roy-Kid/
