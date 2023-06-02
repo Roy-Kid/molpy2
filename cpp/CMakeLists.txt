@@ -1,5 +1,6 @@
 # Use -fPIC even if statically compiled
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_STANDARD 20)
 
 # compile cpp kernel
 add_subdirectory(external/molcpp)

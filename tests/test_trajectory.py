@@ -3,23 +3,17 @@ import molpy2 as mp
 
 class TestTrajectory:
 
-    def test_single_frame(self):
-
-        traj = mp.Trajectory("test.xyz")
+    def test_load_single_frames(self, TEST_DATA_DIR):
+        
+        traj = mp.Trajectory(TEST_DATA_DIR / "xyz/methane.xyz")
         assert traj.nsteps == 1
 
-    def test_multiple_frames(self):
-        
-        traj = mp.Trajectory("test.xyz")
-        assert traj.nsteps == 5
+    def test_load_multiple_frames(self, TEST_DATA_DIR):
 
-    def test_get_frame(self):
-
-        traj = mp.Trajectory("multi.xyz")
+        traj = mp.Trajectory(TEST_DATA_DIR / "lammps/polymer.lammpstrj")
         frame = traj.read()
-        assert frame.nstep == 0
+        assert frame.nstep == 42
 
-        frame = traj.read_step(2)
-        assert frame.nstep == 2
+    def test_write_single_frame(self):
 
-    
+        pass

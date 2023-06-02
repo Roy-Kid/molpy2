@@ -1,24 +1,46 @@
 import molpy2 as mp
-import numpy as np
-import numpy.testing as npt
+import pytest
 
 class TestAtom:
 
-    def test_init(self):
+    def test_constructor(self):
 
-        atom = mp.Atom()
+        a0 = mp.Atom("a0")
+        assert a0.name == "a0"
 
-    def test_get_set(self):
+    def test_copy_constructor(self):
 
-        atom = mp.Atom()
-        atom['int'] = 42
-        atom['double'] = 3.14
-        atom['string'] = "test"
-        atom['positions'] = np.array([1.0, 2.0, 3.0])
-        atom['vel'] = [1.0, 2.0, 3.0]
+        a0 = mp.Atom("a0")
+        a1 = mp.Atom.from(a0)
+        assert a1.name == "a0"
 
-        assert atom['int'] == 42
-        assert atom['double'] == 3.14
-        assert atom['string'] == 'test'
-        npt.assert_allclose(atom['positions'], np.array([1.0, 2.0, 3.0]))
-        npt.assert_allclose(atom['vel'], np.array([1.0, 2.0, 3.0]))
+    def test_has(self):
+
+        a0 = mp.Atom("a0")
+        a0.set("k1", "v1")
+        assert a0.has("k1")
+        a0["k2"] = "v2"
+        assert a0.has("k2")
+        assert "k2" in a0
+
+    def test_set_get(self):
+
+        a0 = mp.Atom("a0")
+        a0.set("k1", "v1")
+        assert a0.get("k1") == "v1"
+        a0["k2"] = "v2"
+        assert a0["k2"] == "v2"
+
+    def test_equality(self):
+            
+        a0 = mp.Atom("a0")
+        a1 = mp.Atom("a1")
+        assert a0 == a0
+        assert a0 != a1
+
+    def test_hash(self):
+            
+        a0 = mp.Atom("a0")
+        a1 = mp.Atom("a1")
+        assert hash(a0) == hash(a0)
+        assert hash(a0) != hash(a1)
