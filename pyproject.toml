@@ -9,6 +9,7 @@ requires = [
     "setuptools_scm[toml]",
     "pybind11",
     "cmake-build-extension",
-    "numpy"
+    "numpy",
+    "chemfiles",
 ]
 build-backend = "setuptools.build_meta"

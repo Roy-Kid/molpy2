@@ -1,3 +1,8 @@
+# author: Roy Kid
+# contact: lijichen365@126.com
+# date: 2023-06-10
+# version: 0.0.1
+
 import molpy2 as mp
 import pytest
 
@@ -11,7 +16,7 @@ class TestAtom:
     def test_copy_constructor(self):
 
         a0 = mp.Atom("a0")
-        a1 = mp.Atom.from(a0)
+        a1 = mp.Atom(a0)
         assert a1.name == "a0"
 
     def test_has(self):

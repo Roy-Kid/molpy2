@@ -10,8 +10,6 @@ set_target_properties(molcpp PROPERTIES MOLCPP_BUILD_SHARED OFF)
 ## find python then pybind11
 find_package(Python REQUIRED COMPONENTS Interpreter Development NumPy)
 find_package(pybind11 REQUIRED CONFIG QUIET)
-find_package(xtensor REQUIRED)
-find_package(xtensor-python REQUIRED)
 
 if (NOT pybind11_FOUND)
     # pybind11 not found, try to find it as a submodule
@@ -32,26 +30,6 @@ else()
     message(STATUS "pybind11 found")
 endif()
 
-if (NOT xtensor-python_FOUND)
-    # xtensor-python not found, try to find it as a submodule
-    # else add it as a submodule at enternal/pybind11
-    if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/external/xtensor-python/CMakeLists.txt")
-        message(STATUS "xtensor-python submodule found")
-        add_subdirectory(xtensor-python)
-    else()
-        message(STATUS "xtensor-python submodule not found, downloading from github")
-        include(FetchContent)
-        FetchContent_Declare(
-            xtensor-python
-            GIT_REPOSITORY 
-        )
-        FetchContent_MakeAvailable(xtensor-python)
-    endif()
-else()
-    message(STATUS "xtensor-python found")
-endif()
-
-
 # --- compile python module ---
 pybind11_add_module(cpp_kernel 
     src/bind_atom.cpp
@@ -62,7 +40,7 @@ target_include_directories(
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_link_libraries(cpp_kernel PUBLIC molcpp pybind11::module xtensor-python Python::NumPy)
+target_link_libraries(cpp_kernel PUBLIC molcpp pybind11::module Python::NumPy)
 
 set_target_properties(
     cpp_kernel

@@ -1,6 +1,9 @@
 # Vscode
 .vscode
 
+# temp build
+src/molpy2/include
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
