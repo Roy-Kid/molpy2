@@ -31,7 +31,8 @@ else()
 endif()
 
 # --- compile python module ---
-pybind11_add_module(cpp_kernel 
+pybind11_add_module(cpp_kernel
+    src/bind_linalg.cpp
     src/bind_atom.cpp
     main.cpp
 )

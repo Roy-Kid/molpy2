@@ -9,5 +9,5 @@ namespace molcpp
 {
     // declearation
     void bind_atom(py::module &m);
-
+    void bind_linalg(py::module &m);
 }

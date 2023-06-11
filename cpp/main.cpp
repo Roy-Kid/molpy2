@@ -5,7 +5,7 @@ namespace molcpp
     PYBIND11_MODULE(molcpp, m)
     {
 
+        bind_linalg(m);
         bind_atom(m);
-
     }
 }

@@ -11,13 +11,13 @@ class TestAtom:
     def test_constructor(self):
 
         a0 = mp.Atom("a0")
-        assert a0.name == "a0"
+        assert a0['name'] == "a0"
 
     def test_copy_constructor(self):
 
         a0 = mp.Atom("a0")
         a1 = mp.Atom(a0)
-        assert a1.name == "a0"
+        assert a1['name'] == "a0"
 
     def test_has(self):
 
