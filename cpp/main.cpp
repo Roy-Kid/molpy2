@@ -7,5 +7,6 @@ namespace molcpp
 
         bind_linalg(m);
         bind_atom(m);
+        bind_itemtype(m);
     }
 }
