@@ -3,43 +3,6 @@
 
 namespace py = pybind11;
 
-namespace pybind11
-{
-    namespace detail
-    {
-
-        template <>
-        struct type_caster<molcpp::AtomPropertyDict>
-        {
-
-        public:
-            PYBIND11_TYPE_CASTER(molcpp::AtomPropertyDict, const_name("Dict"));
-
-            // Conversion part 1 (C++ -> Python): convert a C++ type into a PyObject
-            static handle cast(const molcpp::AtomPropertyDict &d, return_value_policy, handle)
-            {
-
-                return py::cast(d.get_map()).inc_ref();
-            }
-
-            // Conversion part 2 (Python->C++): convert a PyObject into a C++ type
-            bool load(handle src, bool)
-            {
-                if (isinstance<py::dict>(src))
-                {
-
-                    value = molcpp::AtomPropertyDict(py::cast<std::map<std::string, molcpp::AtomProperty>>(src));
-                }
-                else
-                    return false;
-                return true;
-            }
-        };
-
-    } // namespace detail
-} // namespace pybind11
-
-
 namespace molcpp
 {
     void bind_itemtype(py::module &m)

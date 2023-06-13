@@ -1,2 +1,2 @@
 from .atom import Atom
-from .itemtype import AtomProperty, AtomType
+# from .itemtype import AtomProperty, AtomType

@@ -37,11 +37,13 @@ pybind11_add_module(cpp_kernel
     # src/bind_itemtype.cpp
     main.cpp
 )
+
 target_include_directories(
     cpp_kernel 
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
 target_link_libraries(cpp_kernel PUBLIC molcpp pybind11::module Python::NumPy)
 
 set_target_properties(
