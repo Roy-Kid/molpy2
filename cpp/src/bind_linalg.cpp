@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "util.h"
 #include "linalg.hpp"
 
 namespace molcpp
@@ -24,6 +24,12 @@ namespace molcpp
             })
             .def("__truediv__", [](const Vector3D& v1, double rhs) {
                 return v1 / rhs;
+            })
+            .def("__getitem__", [](const Vector3D& v, int i) {
+                return v[i];
+            })
+            .def("__setitem__", [](Vector3D& v, int i, double value) {
+                v[i] = value;
             });
         
     }

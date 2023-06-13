@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "util.h"
 #include "caster.h"
 #include "atom.h"
 #include "bond.h"
@@ -6,8 +6,6 @@
 namespace molcpp
 {
 
-
-    
     void bind_atom(py::module &m)
     {
         auto mm = m.def_submodule("atom", "Atom module");
