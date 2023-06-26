@@ -6,5 +6,6 @@ namespace py = pybind11;
 namespace molcpp
 {
     void bind_linalg(py::module &);
+    void bind_itemtype(py::module &);
     void bind_atom(py::module &);
 }

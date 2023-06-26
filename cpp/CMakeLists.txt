@@ -34,7 +34,7 @@ endif()
 pybind11_add_module(cpp_kernel
     src/bind_linalg.cpp
     # src/bind_atom.cpp
-    # src/bind_itemtype.cpp
+    src/bind_itemtype.cpp
     main.cpp
 )
 
